@@ -297,7 +297,6 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void xrdb(const Arg *arg);
 static void xrdbsignal(int sig);
-static void spawndmenu(const Arg *arg);
 static void zoom(const Arg *arg);
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
@@ -2276,12 +2275,16 @@ exitdwm(const Arg *arg)
 
         const char *argv[] = {
             "dmenu",
+			"-l","5",
+			"-g","1",
+			"-bw","3",
+			"-c",
             "-fn", dmenufont,
             "-nb", dmenu_normbgcolor,
             "-nf", dmenu_normfontcolor,
             "-sb", dmenu_selbgcolor,
             "-sf", dmenu_selfontcolor,
-            "-p", "exit:",
+            "-p", "Exit:",
             NULL
         };
 
@@ -2294,11 +2297,11 @@ exitdwm(const Arg *arg)
 	close(dmenu_to_dwm[PIPE_WRITE]);
 
     char *menu =
-        " Lock\n"
-        "󰶐 Off-screen\n"
-        "󰩈 Exit\n"
-        "󰤁 Reboot\n"
-        "󰚦 Poweroff\n";
+        " lock\n"
+        "󰶐 off-screen\n"
+        "󰩈 exit\n"
+        "󰤁 reboot\n"
+        "󰚦 poweroff\n";
 
 	ssize_t n;
 
@@ -2328,19 +2331,19 @@ exitdwm(const Arg *arg)
     // remove newline do dmenu
     exit_action[strcspn(exit_action, "\n")] = 0;
 
-	if (strcmp(exit_action, " Lock") == 0) {
+	if (strcmp(exit_action, " lock") == 0) {
 		exitmenu("slock & sleep .5; xset dpms force off");
 	}
-	else if (strcmp(exit_action, "󰶐 Off-screen") == 0) {
+	else if (strcmp(exit_action, "󰶐 off-screen") == 0) {
 		exitmenu("sleep .5; xset dpms force off");
 	}
-	else if (strcmp(exit_action, "󰩈 Exit") == 0) {
+	else if (strcmp(exit_action, "󰩈 exit") == 0) {
 		quit(&(const Arg){0});
 	}
-	else if (strcmp(exit_action, "󰤁 Reboot") == 0) {
+	else if (strcmp(exit_action, "󰤁 reboot") == 0) {
 		exitmenu("systemctl reboot");
 	}
-	else if (strcmp(exit_action, "󰚦 Poweroff") == 0) {
+	else if (strcmp(exit_action, "󰚦 poweroff") == 0) {
 		exitmenu("systemctl poweroff -i");
 	}
 
@@ -3002,25 +3005,6 @@ systraytomon(Monitor *m) {
 	if(systraypinningfailfirst && n < systraypinning)
 		return mons;
 	return t;
-}
-
-void
-spawndmenu(const Arg *arg)
-{
-	loadxrdb();
-	const char *cmd[] = {
-        "dmenu_run",
-        "-m", dmenumon,
-        "-fn", (char *)dmenufont,
-        "-nb", dmenu_normbgcolor,
-        "-nf", dmenu_normfontcolor,
-        "-sb", dmenu_selbgcolor,
-        "-sf", dmenu_selfontcolor,
-        NULL
-    };
-
-    Arg a = { .v = cmd };
-    spawn(&a);
 }
 
 void

@@ -15,7 +15,7 @@ static const char *fonts[] = {
 };
 
 static const char dmenufont[] = 
-    "DejaVuSansM Nerd Font Mono:size=14";
+    "DejaVuSansM Nerd Font Mono:size=18";
 
 
 /* Systray */
@@ -131,6 +131,12 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 // Dmenu
 static const char *dmenucmd[] = {
     "dmenu_run",
+    "-p","Run: ",
+    "-l","10",
+    "-g","4",
+    "-bw", "3",
+    "-dw", "1400",
+    "-c",
     "-fn", dmenufont,
     "-nb", dmenu_normbgcolor,   /* Normal Background */
     "-nf", dmenu_normfontcolor, /* Normal Text */  
@@ -149,7 +155,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const Key keys[] = {
     /* Launchers */
     { MODKEY, XK_Return, spawn, {.v = termcmd } },
-    { MODKEY, XK_d, spawndmenu, {.v = NULL} },
+    { MODKEY, XK_d, spawn, {.v = dmenucmd} },
     { MODKEY|ShiftMask, XK_d, spawn, {.v = thunarcmd } },
     { MODKEY|ShiftMask,	XK_f, spawn, {.v = librewolfcmd} },
 
