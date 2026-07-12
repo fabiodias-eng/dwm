@@ -148,7 +148,7 @@ static const char *dmenucmd[] = {
 // Applications
 static const char *thunarcmd[]  = {"thunar", NULL };
 static const char *librewolfcmd[] = {"librewolf", NULL};
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "st", NULL };
 
 
 /* Keybindings */
