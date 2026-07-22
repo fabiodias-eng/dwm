@@ -97,13 +97,12 @@ static const int lockfullscreen = 1;    /* 1 will force focus on the fullscreen 
 
 /* Layout Definitions */
 static const Layout layouts[] = {
-	/* symbol, arrange function */
-	{ ":T:", tile }, /* first entry is default */
-	{ ":F:", NULL }, /* no layout function means floating behavior */
-	{ ":M:", monocle },
-    { ":G:", grid},
-    { ":C:", centeredmaster },
-	{ ":c:", centeredfloatingmaster },
+    /* symbol, arrange function */
+    { "[T]", tile }, /* first entry is default */
+    { "[M]", monocle },
+    { "[G]", grid},
+    { "[C]", centeredmaster },
+    { "[c]", centeredfloatingmaster },
 };
 
 
@@ -160,16 +159,14 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,	XK_f, spawn, {.v = librewolfcmd} },
 
     /* Layouts */
-    { MODKEY, XK_F1, setlayout, {.v = &layouts[0]} },
-    { MODKEY, XK_F2, setlayout, {.v = &layouts[1]} },
-    { MODKEY, XK_F3, setlayout, {.v = &layouts[2]} },
-    { MODKEY, XK_F4, setlayout, {.v = &layouts[3]} },
-    { MODKEY, XK_F5, setlayout, {.v = &layouts[4]} },
-	{ MODKEY, XK_F6, setlayout, {.v = &layouts[5]} },
-    { MODKEY, XK_space, setlayout, {0} },
-
-    /* Floating Toggle */
-    { MODKEY|ShiftMask, XK_space, togglefloating, {0} },
+    { MODKEY,             XK_t, setlayout, {.v = &layouts[0]} }, // Tile
+    { MODKEY,             XK_m, setlayout, {.v = &layouts[1]} }, // Monocle
+    { MODKEY,             XK_g, setlayout, {.v = &layouts[2]} }, // Grid
+    { MODKEY,             XK_c, setlayout, {.v = &layouts[3]} }, // Centered Master
+    { MODKEY|ShiftMask,   XK_c, setlayout, {.v = &layouts[4]} }, // Centered Floating Master
+    { MODKEY,             XK_f, togglefullscr, {0} },            // Fullscreen
+    { MODKEY|ShiftMask,   XK_space, togglefloating, {0} },       // Toggle Floating
+    { MODKEY,             XK_space, setlayout, {0} },            // Cycle
 
     /* Window Focus */
     { MODKEY, XK_j, focusstack, {.i = +1 } },
