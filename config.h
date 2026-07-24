@@ -197,9 +197,6 @@ static const Key keys[] = {
     { MODKEY|ShiftMask, XK_comma, tagmon, {.i = -1 } },
     { MODKEY|ShiftMask, XK_period, tagmon, {.i = +1 } },
 
-    /* DWM Exit Menu */
-    { MODKEY|ShiftMask, XK_e, exitdwm, {0} },
-
     /* Tags */
     TAGKEYS( XK_1, 0 )
     TAGKEYS( XK_2, 1 )
@@ -218,14 +215,14 @@ static const Key keys[] = {
     /* Gaps */
     { MODKEY|ShiftMask, XK_F11, setgaps, {.i = +1 } }, // increase
     { MODKEY|ShiftMask, XK_F12, setgaps, {.i = -1 } }, // decrease
-    
+
     /* Screen Brightness */
     { 0, XF86XK_MonBrightnessUp, spawn,
         SHCMD("/usr/bin/brightnessctl set +5% && " BRIGHTNESS_NOTIFICATION) },
 
     { 0, XF86XK_MonBrightnessDown,spawn,
         SHCMD("/usr/bin/brightnessctl set 5%- && " BRIGHTNESS_NOTIFICATION) },
-    
+
     /* Audio Volume */
     { 0, XF86XK_AudioRaiseVolume, spawn,
         SHCMD("~/.local/bin/volume-control/volume-up")},
@@ -235,7 +232,11 @@ static const Key keys[] = {
 
     { 0, XF86XK_AudioMute, spawn,
         SHCMD("~/.local/bin/volume-control/volume-mute") },
-    
+
+    /* DWM Exit Menu */
+    { MODKEY|ShiftMask, XK_e, exitdwm, {0} },
+    { 0, XF86XK_PowerOff, exitdwm, {0} },
+
     /* Theme Reload */
     { MODKEY, XK_F8, xrdb, {.v = NULL } },
 };
