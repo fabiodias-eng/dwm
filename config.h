@@ -95,6 +95,7 @@ static const Layout layouts[] = {
 
 /* Macros */
 #define MODKEY Mod4Mask
+#define MODALT Mod1Mask
 
 #define TAGKEYS(KEY, TAG)                                                      \
   {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
@@ -239,6 +240,10 @@ static const Key keys[] = {
     /* Screenshot Selection Save */
     {ControlMask | ShiftMask, XK_Print, spawn,
      SHCMD("~/.local/bin/screenshot-handler/screenshot-selection-save")},
+
+    /* Raindrop <-> Librewolf Search Shortcut */
+    {MODALT, XK_o, spawn,
+     SHCMD("~/.local/bin/shortcuts/librewolf-raindrop-search")},
 };
 
 /* Mouse Bindings */

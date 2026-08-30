@@ -239,6 +239,10 @@ static const Key keys[] = {
     /* Screenshot Selection Save */
     {ControlMask | ShiftMask, XK_Print, spawn,
      SHCMD("~/.local/bin/screenshot-handler/screenshot-selection-save")},
+
+    /* Raindrop <-> Librewolf Search Shortcut */
+    {MODKEY, XK_o, spawn,
+     SHCMD("~/.local/bin/shortcuts/librewolf-raindrop-search")},
 };
 
 /* Mouse Bindings */
