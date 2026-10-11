@@ -2209,7 +2209,7 @@ void grid(Monitor *m) {
     ah = ((i + 1) % rows == 0) ? m->wh - ch * rows : 0;
     aw = (i >= rows * (cols - 1)) ? m->ww - cw * cols : 0;
 
-    resize(c, cx, cy, cw - 2 * c->bw + aw, ch - 2 * c->bw + ah, bw, False);
+    resize(c, cx, cy, cw - 2 * bw + aw, ch - 2 * bw + ah, bw, False);
     i++;
   }
 }
@@ -2651,7 +2651,8 @@ void updatesystrayicongeom(Client *i, int w, int h) {
       i->w = w;
     else
       i->w = (int)((float)bh * ((float)w / (float)h));
-    applysizehints(i, &(i->x), &(i->y), &(i->w), &(i->h), 0, False);
+    int bw = i->bw;
+    applysizehints(i, &(i->x), &(i->y), &(i->w), &(i->h), &bw, False);
     /* force icons into the systray dimensions if they don't want to */
     if (i->h > bh) {
       if (i->w == i->h)
@@ -2695,7 +2696,6 @@ void updatesystray(void) {
   unsigned int x = m->mx + m->mw;
   unsigned int sw = TEXTW(stext) - lrpad + systrayspacing;
   unsigned int w = 1;
-
   if (!showsystray)
     return;
   if (systrayonleft)
@@ -3002,8 +3002,7 @@ void centeredmaster(Monitor *m) {
       /* nmaster clients are stacked vertically, in the center
        * of the screen */
       h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-      resize(c, m->wx + mx, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw), bw,
-             0);
+      resize(c, m->wx + mx, m->wy + my, mw - (2 * bw), h - (2 * bw), bw, 0);
       my += HEIGHT(c);
     } else {
       /* stack clients are stacked vertically */
@@ -3013,8 +3012,8 @@ void centeredmaster(Monitor *m) {
         ety += HEIGHT(c);
       } else {
         h = (m->wh - oty) / ((1 + n - i) / 2);
-        resize(c, m->wx + mx + mw, m->wy + oty, tw - (2 * c->bw),
-               h - (2 * c->bw), bw, 0);
+        resize(c, m->wx + mx + mw, m->wy + oty, tw - (2 * bw), h - (2 * bw), bw,
+               0);
         oty += HEIGHT(c);
       }
     }
@@ -3059,13 +3058,12 @@ void centeredfloatingmaster(Monitor *m) {
       /* nmaster clients are stacked horizontally, in the center
        * of the screen */
       w = (mw + mxo - mx) / (MIN(n, m->nmaster) - i);
-      resize(c, m->wx + mx, m->wy + my, w - (2 * c->bw), mh - (2 * c->bw), bw,
-             0);
+      resize(c, m->wx + mx, m->wy + my, w - (2 * bw), mh - (2 * bw), bw, 0);
       mx += WIDTH(c);
     } else {
       /* stack clients are stacked horizontally */
       w = (m->ww - tx) / (n - i);
-      resize(c, m->wx + tx, m->wy, w - (2 * c->bw), m->wh - (2 * c->bw), bw, 0);
+      resize(c, m->wx + tx, m->wy, w - (2 * bw), m->wh - (2 * bw), bw, 0);
       tx += WIDTH(c);
     }
 }
